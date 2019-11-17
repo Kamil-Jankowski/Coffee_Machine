@@ -1,5 +1,4 @@
-# Coffee_Machine
-# Tic-Tac-Toe - project finished
+# Coffee Machine
 
 **Stage 2: (ongoing)**
 
