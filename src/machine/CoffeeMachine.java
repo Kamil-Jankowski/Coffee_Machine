@@ -3,28 +3,34 @@ package machine;
 import java.util.Scanner;
 
 public class CoffeeMachine {
-    private static final int ML_OF_WATER_REQUIRED_FOR_ONE_CUP = 200;
-    private static final int ML_OF_MILK_REQUIRED_FOR_ONE_CUP = 50;
-    private static final int G_OF_COFFEE_BEANS_REQUIRED_FOR_ONE_CUP = 15;
 
     public static void main(String[] args) {
+        Coffee coffee = new Coffee();
         Scanner scanner = new Scanner(System.in);
         int cupsOfCoffee;
         int mlOfWater;
         int mlOfMilk;
         int gOfCoffeeBeans;
+        int availableAmountOfCoffeeCups;
 
+        System.out.println("Write how many ml of water the coffee machine has: ");
+        mlOfWater = scanner.nextInt();
+        System.out.println("Write how many ml of milk the coffee machine has: ");
+        mlOfMilk = scanner.nextInt();
+        System.out.println("Write how many grams of coffee beans the coffee machine has: ");
+        gOfCoffeeBeans = scanner.nextInt();
         System.out.println("Write how many cups of coffee you will need: ");
         cupsOfCoffee = scanner.nextInt();
-        // One cup of coffee needs: 200 ml of water, 50 ml of milk, 15 g of coffee beans
 
-        mlOfWater = cupsOfCoffee * ML_OF_WATER_REQUIRED_FOR_ONE_CUP;
-        mlOfMilk = cupsOfCoffee * ML_OF_MILK_REQUIRED_FOR_ONE_CUP;
-        gOfCoffeeBeans = cupsOfCoffee * G_OF_COFFEE_BEANS_REQUIRED_FOR_ONE_CUP;
+        availableAmountOfCoffeeCups = coffee.countAvailableCoffeeCups(mlOfWater, mlOfMilk, gOfCoffeeBeans);
 
-        System.out.printf("For %d cups of coffee you will need:\n" +
-                "%d ml of water\n" +
-                "%d ml of milk\n" +
-                "%d g of coffee beans\n", cupsOfCoffee, mlOfWater, mlOfMilk, gOfCoffeeBeans);
+        if(availableAmountOfCoffeeCups == cupsOfCoffee){
+            System.out.println("Yes, I can make that amount of coffee");
+        } else if (availableAmountOfCoffeeCups > cupsOfCoffee){
+            int reserve = availableAmountOfCoffeeCups - cupsOfCoffee;
+            System.out.printf("Yes, I can make that amount of coffee (and even %d more than that)", reserve);
+        } else {
+            System.out.printf("No, I can make only %d cup(s) of coffee", availableAmountOfCoffeeCups);
+        }
     }
 }
