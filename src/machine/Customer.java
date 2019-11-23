@@ -16,20 +16,28 @@ class Customer {
         this.coffee = coffee;
     }
 
-    void buy(int variant){
+    void buy(String variant){
         switch (variant){
-            case 1:
+            case "1":
                 coffee = new Espresso();
                 break;
-            case 2:
+            case "2":
                 coffee = new Latte();
                 break;
-            case 3:
+            case "3":
                 coffee = new Cappuccino();
                 break;
+            case "back":
+                // return to main menu
+                break;
             default:
-                System.out.println("Coffee unavailable. No correct selection made.");
+                System.out.println("No correct selection made.\n");
+                // return to main menu
         }
-        coffeeMaker.makeCoffee(coffee);
+        if (coffee != null){
+            try{
+                coffeeMaker.makeCoffee(coffee);
+            } catch (InterruptedException ex) {ex.printStackTrace();}
+        }
     }
 }
