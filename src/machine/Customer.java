@@ -19,13 +19,13 @@ class Customer {
     void buy(String variant){
         switch (variant){
             case "1":
-                coffee = new Espresso();
+                coffee = CoffeeSelection.ESPRESSO.getCoffee();
                 break;
             case "2":
-                coffee = new Latte();
+                coffee = CoffeeSelection.LATTE.getCoffee();
                 break;
             case "3":
-                coffee = new Cappuccino();
+                coffee = CoffeeSelection.CAPPUCCINO.getCoffee();
                 break;
             case "back":
                 // return to main menu

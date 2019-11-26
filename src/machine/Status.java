@@ -1,0 +1,13 @@
+package machine;
+
+public enum Status {
+    BUYING,
+    FILLING_WATER,
+    FILLING_MILK,
+    FILLING_COFFEE,
+    FILLING_CUPS,
+    TAKING_MONEY,
+    PRINTING_STATUS,
+    CLOSING_PROGRAM,
+    MAIN_SELECTING
+}

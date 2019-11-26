@@ -1,8 +1,67 @@
 package machine;
 
 class CoffeeMaker {
+    private Customer customer;
+    private Worker worker;
+
     Stock stock = new Stock(400, 540, 120, 9);
     Moneybox cash = new Moneybox(550);
+
+    private String password = "1234";
+    private int water;
+    private int milk;
+    private int coffeeBeans;
+    private int cups;
+
+
+    boolean runCoffeeMachine(Status status) {
+        return status != Status.CLOSING_PROGRAM;
+    }
+
+    String runCoffeeMachine(CoffeeMaker machine, Status status, String input){
+        switch (status) {
+            case BUYING:
+                customer = new Customer(machine);
+                customer.buy(input);
+                break;
+            case FILLING_WATER:
+                water = Integer.parseInt(input);
+                break;
+            case FILLING_MILK:
+                milk = Integer.parseInt(input);
+                break;
+            case FILLING_COFFEE:
+                coffeeBeans = Integer.parseInt(input);
+                break;
+            case FILLING_CUPS:
+                cups = Integer.parseInt(input);
+                worker = new Supplier(machine.stock);
+                worker.fill(water, milk, coffeeBeans, cups);
+                break;
+            case TAKING_MONEY:
+                if (password.equals(input)) {
+                worker = new Seller(machine.cash);
+                worker.take();
+                } else {
+                    System.out.println("Wrong PIN number");
+                }
+                break;
+            case PRINTING_STATUS:
+                if (password.equals(input)) {
+                System.out.println();
+                System.out.println(machine.stock.toString());
+                System.out.println(machine.cash.toString());
+                System.out.println();
+                } else {
+                    System.out.println("Wrong PIN number");
+                }
+                break;
+            case MAIN_SELECTING:
+            default:
+                return input.toUpperCase();
+        }
+        return input;
+    }
 
     void makeCoffee(Coffee coffee) throws InterruptedException {
         // if resources are ok:
@@ -35,10 +94,4 @@ class CoffeeMaker {
         }
     }
 
-//    public int countAvailableCoffeeCups(int water, int milk, int coffeeBeans, Coffee coffee) {
-//        int partsOfWater = water / coffee.getMlOfWaterRequiredForOneCup();
-//        int partsOfMilk = milk / coffee.getMlOfMilkRequiredForOneCup();
-//        int partsOfCoffee = coffeeBeans / coffee.getGOfCoffeeRequiredForOneCup();
-//        return Math.min(Math.min(partsOfWater, partsOfMilk), partsOfCoffee);
-//    }
 }
